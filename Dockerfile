@@ -15,7 +15,6 @@ RUN sleep 31                                                                    
  && cd                                                                        xcbproto     \
  && ./autogen.sh                                                                           \
  && ./configure $XORG_CONFIG                                                               \
- && make                                                                                   \
  && make DESTDIR=/tmp/xcbproto install                                                     \
  && rm -rf                                                                    xcbproto     \
  && cd           /tmp/xcbproto                                                             \
