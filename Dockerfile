@@ -5,7 +5,8 @@ COPY --from=innovanon/libxau      /tmp/libXau.txz      /tmp/
 COPY --from=innovanon/libxdmcp    /tmp/libXdmcp.txz    /tmp/
 RUN cat   /tmp/*.txz  \
   | tar Jxf - -i -C / \
- && rm -v /tmp/*.txz
+ && rm -v /tmp/*.txz  \
+ && ldconfig
 
 ARG LFS=/mnt/lfs
 WORKDIR $LFS/sources
@@ -18,6 +19,7 @@ RUN sleep 31                                                                    
  && make DESTDIR=/tmp/xcbproto install                                                     \
  && rm -rf                                                                    xcbproto     \
  && cd           /tmp/xcbproto                                                             \
+ && strip.sh .                                                                             \
  && tar acf        ../xcbproto.txz .                                                       \
  && cd ..                                                                                  \
  && rm -rf       /tmp/xcbproto
